@@ -1,4 +1,6 @@
 var apiKey = "&appid=af1540a845cf5edb12fcfb5013428dbd";
+var forecastAPI = "https://api.openweathermap.org/data/2.5/forecast?q=";
+var uvAPI = "https://api.openweathermap.org/data/2.5/uvi?";
 var unitsEl = "&units=imperial";
 var cityTempEl = document.getElementById("city-temp");
 var humidityEl = document.getElementById("city-humidity");
@@ -52,8 +54,21 @@ function searchCity(city) {
     windSpeedEl.textContent = "Wind Speed: " + response.wind.speed;
     console.log(windSpeedEl);
   });
+
+  // this will grab uv index and pass it to the html
+  var lat = response.coord.lat;
+  var lon = response.coord.lon;
+  uvAPI = uvAPI + "lat=" + lat + "&lon=" + lon + apiKey;
+
+  $.ajax({
+    url: uvAPI,
+    method: "GET",
+  }).then(function (response) {
+    console.log(response);
+    uvIndexEl.textContent = "UV Index: " + response;
+    console.log(uvIndexEl);
+  });
 }
-// this will grab uv index and pass it to the html
 
 // UVQueryURL = UVQueryURL + city + apiKey + latEl + lonEl + countEl;
 // console.log(UVQueryURL);
