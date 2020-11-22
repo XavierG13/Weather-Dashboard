@@ -6,6 +6,7 @@ var cityTempEl = document.getElementById("city-temp");
 var humidityEl = document.getElementById("city-humidity");
 var windSpeedEl = document.getElementById("city-wind-speed");
 var uvIndexEl = document.getElementById("city-uv-index");
+var fiveDayEl = document.getElementById("5-Day Forecast");
 var submit = document.getElementById("submit");
 var input = document.getElementById("inputCity");
 var savedCities = document.getElementById("past-cities");
@@ -67,6 +68,23 @@ function searchCity(city) {
     console.log(response);
     uvIndexEl.textContent = "UV Index: " + response;
     console.log(uvIndexEl);
+  });
+}
+
+// five day forecast function 
+
+function fiveDay(city) {
+  
+  forecastAPI = forecastAPI + city + apiKey + unitsEl;
+  console.log(forecastAPI);
+
+  $.ajax({
+    url: forecastAPI,
+    method: "GET",
+  }).then(function (response) {
+    console.log(response);
+    fiveDayEl.textContent =  response;
+    console.log(fiveDayEl);
   });
 }
 
